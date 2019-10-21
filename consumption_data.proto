@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+service ConsumptionDataService{
+    rpc ConsumptionData (RequestData) returns ( ReturnData) {}
+}
+
+message RequestData {}
+message ReturnData {
+    repeated ItemData data = 1;
+}
+
+message ItemData {
+    string date = 1;
+    string consumption = 2;
+}
