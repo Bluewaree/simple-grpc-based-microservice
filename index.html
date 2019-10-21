@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="container" style="text-align: center;">
+    <table id="table" style="width:20%">     
+    </table>
+</div>
+
+<script>
+    var xmlhttp = new XMLHttpRequest();
+    var url = "http://localhost:5000";
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let response = JSON.parse(this.responseText);
+            dsplay_data(response.data);
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
+    dsplay_data = (arr) => {
+        let out = "";
+        out += '<tr><th>Date</th><th>Meterusage</th></tr>'
+        for(let i = 0; i < arr.length; i++) {
+            out += '<tr><td>'+arr[i]['consumption']+'</td><td>'+ arr[i]['date'] + '<td/><tr>';
+        }
+        document.getElementById("table").innerHTML = out;
+    }
+</script>
+
+</body>
+</html>
