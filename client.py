@@ -5,9 +5,12 @@ import consumption_data_pb2
 import consumption_data_pb2_grpc
 from flask import Flask
 from google.protobuf.json_format import MessageToJson 
+from flask_cors import CORS, cross_origin
 app = Flask(__name__)
+cors = CORS(app, resources={r'/*': {"origins": '*'}})
  
 @app.route('/', methods=["GET"])
+@cross_origin()
 def index():
     response = run()
     return MessageToJson(response)
