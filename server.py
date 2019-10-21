@@ -10,9 +10,13 @@ class Listener(consumption_data_pb2_grpc.ConsumptionDataServiceServicer):
 
     def ConsumptionData(self, request, context):
         data = []
+        firstline = True
         with open('meterusage.csv', 'r') as csvFile:
             reader = csv.reader(csvFile)
             for row in reader:
+                if firstline:    #skip first line of csv
+                    firstline = False
+                    continue
                 data.append({"date":row[0],"consumption":row[1]})
 
         return consumption_data_pb2.ReturnData(data=data)
